@@ -4,7 +4,8 @@ package day06.member;
 public class MemberRepository {
 
     // 필드
-    static Member[] members;
+    static Member[] members; // 현재 관리되는 회원 배열
+    static Member[] restoreList; // 삭제된 회원들의 모일 배열
 
     // 생성자
     MemberRepository() {
@@ -48,4 +49,44 @@ public class MemberRepository {
         return false;
     }
 
+    /**
+     * 이메일을 통해 회원의 모든 정보(객체)를 가져오는 메서드
+     * @param inputEmail - 사용자가 입력한 이메일값
+     * @return - 해당 이메일을 통해 찾아낸 회원 객체, 만약 찾지 못하면 null을 리턴
+     */
+    public Member findMemberByEmail(String inputEmail) {
+        for(Member m:members){
+            if(inputEmail.equals(m.email)){
+                return m;
+            }
+        }
+        return null;
+    }
+
+    int findIndex(String email) {
+        for (int i = 0; i < members.length; i++) {
+            if (email.equals(members[i].email)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // 배열에서 회원정보 삭제
+    public void removeMember(String inputEmail) {
+
+        int index = findIndex(inputEmail);
+
+        if (index == -1) return;
+
+        for (int i = index; i < members.length - 1; i++) {
+            members[i] = members[i + 1];
+        }
+
+        Member[] temp = new Member[members.length - 1];
+        for (int i = 0; i < temp.length; i++) {
+            temp[i] = members[i];
+        }
+        members = temp;
+    }
 }
