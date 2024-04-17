@@ -28,7 +28,7 @@ public class Test {
                 {}
            ];
          */
-//
+
 //        System.out.println("=====================");
 //        for (Member m : members) {
 //            System.out.println(m.memberName);
@@ -45,7 +45,10 @@ public class Test {
 //
 //        mv.showMembers();
 
+        MemberRepository mr = new MemberRepository();
 
+        Member foundMember = mr.findMemberByEmail("xyz123@def.com");
+        System.out.println("foundMember = " + foundMember);
 
     }
 }
